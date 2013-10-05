@@ -26,14 +26,16 @@ namespace Quick_Photo_Viewer
     private int _imageCount;
     private List<string> _imageFiles;
     private PhotoCollection _photos;
+    private Stretch _photoDisplayMode;
 
     #endregion
 
     #region public properties
 
-    public Photo CurrentPhoto { 
-      get { return _currentPhoto; } 
-      set 
+    public Photo CurrentPhoto
+    {
+      get { return _currentPhoto; }
+      set
       {
         if (_currentPhoto != value)
         {
@@ -48,9 +50,10 @@ namespace Quick_Photo_Viewer
       }
     }//new Photo("C:\\Users\\Ryan\\Pictures\\sky, space and landscapes\\CrkWD.jpg");
     //Photo oldPhoto = null;
-    public string ImageDirectory { 
-      get { return _imageDirectory; } 
-      set 
+    public string ImageDirectory
+    {
+      get { return _imageDirectory; }
+      set
       {
         if (_imageDirectory != value)
         {
@@ -59,18 +62,43 @@ namespace Quick_Photo_Viewer
         }
       }
     }
-    public int ImageNumber { 
-      get { return _imageNumber; } 
-      set { _imageNumber = value; } }
-    public int ImageCount { 
-      get { return _imageCount; } 
-      set { _imageCount = value; } }
-    public List<string> ImageFiles { 
+    public int ImageNumber
+    {
+      get { return _imageNumber; }
+      set { _imageNumber = value; }
+    }
+    public int ImageCount
+    {
+      get { return _imageCount; }
+      set { _imageCount = value; }
+    }
+    public List<string> ImageFiles
+    {
       get { return _imageFiles; }
-      set { _imageFiles = value; } }
-    public PhotoCollection Photos { 
-      get { return _photos; } 
-      set { _photos = value; } }
+      set { _imageFiles = value; }
+    }
+    public PhotoCollection Photos
+    {
+      get { return _photos; }
+      set { _photos = value; }
+    }
+    public Stretch PhotoDisplayMode
+    {
+      get { return _photoDisplayMode; }
+      set
+      {
+        if (_photoDisplayMode != value)
+        {
+          _photoDisplayMode = value;
+          NotifyPropertyChanged("PhotoDisplayMode");
+          var handler = PropertyChanged;
+          if (handler != null)
+          {
+            handler(this, new PropertyChangedEventArgs("PhotoDisplayMode"));
+          }
+        }
+      }
+    }
 
     #endregion
 
@@ -84,17 +112,18 @@ namespace Quick_Photo_Viewer
       _imageCount = 0;
       _imageFiles = new List<string>();
       _photos = new PhotoCollection();
+      _photoDisplayMode = Stretch.Uniform;
 
       registerCommands();
 
       //Task.Run(() =>
       //  {
-          if (Environment.GetCommandLineArgs().Length > 1)
-            loadImages(Environment.GetCommandLineArgs()[1]);
-          else
-            //LoadImages("C:\\Users\\Ryan\\Pictures\\sky, space and landscapes\\3r4en.jpg");
-            loadImages("C:\\Users\\Public\\Pictures\\Sample Pictures\\Desert.jpg");
-        //});
+      if (Environment.GetCommandLineArgs().Length > 1)
+        loadImages(Environment.GetCommandLineArgs()[1]);
+      else
+        //LoadImages("C:\\Users\\Ryan\\Pictures\\sky, space and landscapes\\3r4en.jpg");
+        loadImages("C:\\Users\\Public\\Pictures\\Sample Pictures\\Desert.jpg");
+      //});
     }
 
     #endregion
@@ -150,7 +179,17 @@ namespace Quick_Photo_Viewer
     public ICommand ToggleImageSizeCommand { get; set; }
     private void toggleImageSize()
     {
-      
+      if (PhotoDisplayMode == Stretch.Uniform)
+      {
+        PhotoDisplayMode = Stretch.None;
+        //TranslateImage(thePhoto.Source.Width / 2, thePhoto.Source.Height / 2);
+        //thePhoto.Cursor = Cursors.Hand;
+      }
+      else
+      {
+        PhotoDisplayMode = Stretch.Uniform;
+        //thePhoto.Cursor = Cursors.Arrow;
+      }
     }
 
     #endregion

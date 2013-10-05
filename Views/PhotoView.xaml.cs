@@ -23,31 +23,11 @@ namespace Quick_Photo_Viewer
   public partial class PhotoView : Window
   {
 
-    //Photo currPhoto = null;//new Photo("C:\\Users\\Ryan\\Pictures\\sky, space and landscapes\\CrkWD.jpg");
-    ////Photo oldPhoto = null;
-    //private string imageDir = null;
-    //private int imageNum = 0;
-    //private List<string> images;
-    //public PhotoCollection photos = new PhotoCollection();
-
     public PhotoView()
     {
       InitializeComponent();
       this.DataContext = new PhotoViewModel();
     }
-
-    //private void OnWindowLoaded(object sender, RoutedEventArgs e)
-    //{
-    //    if (Environment.GetCommandLineArgs().Length > 1)
-    //    {
-    //        LoadImages(Environment.GetCommandLineArgs()[1]);
-    //    }
-    //    else
-    //    {
-    //        //MessageBox.Show("fail");
-    //        LoadImages("C:\\Users\\Ryan\\Pictures\\sky, space and landscapes\\3r4en.jpg");
-    //    }
-    //}
 
     private void Open_Click(object sender, RoutedEventArgs e)
     {
@@ -111,19 +91,6 @@ namespace Quick_Photo_Viewer
     private void Exit_Click(object sender, RoutedEventArgs e)
     {
       Application.Current.Shutdown();
-    }
-
-    private void MainWindow1_PreviewKeyDown(object sender, KeyEventArgs e)
-    {
-      switch (e.Key)
-      {
-        case Key.Left:
-        case Key.Right:
-        case Key.Up:
-        case Key.Down:
-          //e.IsInputKey = true;
-          break;
-      }
     }
 
     //private void MainWindow1_KeyDown(object sender, KeyEventArgs e)

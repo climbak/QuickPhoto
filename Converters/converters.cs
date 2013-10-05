@@ -204,4 +204,19 @@ namespace Quick_Photo_Viewer
         throw new NotSupportedException();
       }
     }
+
+    public class PhotoStretchConverter : IValueConverter
+    {
+
+      public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        System.Windows.Media.Stretch stretch = (System.Windows.Media.Stretch)value;
+        return stretch.ToString();
+      }
+
+      public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        throw new NotSupportedException();
+      }
+    }
 }
