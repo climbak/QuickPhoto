@@ -53,12 +53,23 @@
     <ApplicationIcon>img-landscape.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Julmar.Core">
+      <HintPath>packages\MVVMHelpers.2012.4.20.02\lib\4.5\Julmar.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Julmar.Wpf.Behaviors">
+      <HintPath>packages\MVVMHelpers.2012.4.20.02\lib\4.5\Julmar.Wpf.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="JulMar.Wpf.Helpers">
+      <HintPath>packages\MVVMHelpers.2012.4.20.02\lib\4.5\JulMar.Wpf.Helpers.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Drawing" />
     <Reference Include="Microsoft.Expression.Interactions" />
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Interactivity" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\MVVMHelpers.2012.4.20.02\lib\4.5\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -76,18 +87,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AboutWindow.xaml.cs">
+    <Compile Include="Models\Metadata.cs" />
+    <Compile Include="Models\Photo.cs" />
+    <Compile Include="Models\PhotoCollection.cs" />
+    <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PhotoViewModel.cs" />
-    <Compile Include="SettingsWindow.xaml.cs">
+    <Compile Include="ViewModels\PhotoViewModel.cs" />
+    <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="AboutWindow.xaml">
+    <Page Include="Views\AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PhotoView.xaml">
+    <Page Include="Views\PhotoView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -95,17 +109,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="converters.cs" />
-    <Compile Include="data.cs" />
-    <Compile Include="PhotoView.xaml.cs">
+    <Compile Include="Converters\converters.cs" />
+    <Compile Include="Models\Enums.cs" />
+    <Compile Include="Views\PhotoView.xaml.cs">
       <DependentUpon>PhotoView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Buttons.xaml">
+    <Page Include="Styles\Buttons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SettingsWindow.xaml">
+    <Page Include="Views\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -128,6 +142,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

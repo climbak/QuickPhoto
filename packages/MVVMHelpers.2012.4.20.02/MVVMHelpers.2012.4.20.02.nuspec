@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>MVVMHelpers</id>
+    <version>2012.4.20.02</version>
+    <title>MVVM Helpers</title>
+    <authors>Mark Smith</authors>
+    <owners>Mark Smith</owners>
+    <licenseUrl>http://mvvmhelpers.codeplex.com/license</licenseUrl>
+    <projectUrl>http://mvvmhelpers.codeplex.com/</projectUrl>
+    <iconUrl>http://www.julmar.com/images/mvvmHelpers.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>MVVM Helpers is a library of helpers for WPF to implement the MVVM design pattern, it also includes several Blend behaviors, attached behaviors, extension methods and general .NET classes to aid in the development of WPF applications.</description>
+    <releaseNotes />
+    <copyright>(C) 2009-2013 JulMar Technology, Inc.</copyright>
+    <language>en-US</language>
+    <tags>mvvm wpf ui blend behaviors .NET</tags>
+    <references>
+      <reference file="Julmar.Core.dll" />
+      <reference file="Julmar.Wpf.Behaviors.dll" />
+      <reference file="JulMar.Wpf.Helpers.dll" />
+      <reference file="System.ComponentModel.Composition.dll" />
+      <reference file="System.Windows.Interactivity.dll" />
+      <reference file="WPFToolkit.dll" />
+    </references>
+  </metadata>
+</package>

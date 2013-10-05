@@ -1,4 +1,6 @@
-﻿using System;
+﻿using JulMar.Windows.Mvvm;
+using Quick_Photo_Viewer.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -7,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -82,11 +85,16 @@ namespace Quick_Photo_Viewer
       _imageFiles = new List<string>();
       _photos = new PhotoCollection();
 
-      if (Environment.GetCommandLineArgs().Length > 1)
-        LoadImages(Environment.GetCommandLineArgs()[1]);
-      else
-        //LoadImages("C:\\Users\\Ryan\\Pictures\\sky, space and landscapes\\3r4en.jpg");
-        LoadImages("C:\\Users\\Public\\Pictures\\Sample Pictures\\Desert.jpg");
+      registerCommands();
+
+      //Task.Run(() =>
+      //  {
+          if (Environment.GetCommandLineArgs().Length > 1)
+            loadImages(Environment.GetCommandLineArgs()[1]);
+          else
+            //LoadImages("C:\\Users\\Ryan\\Pictures\\sky, space and landscapes\\3r4en.jpg");
+            loadImages("C:\\Users\\Public\\Pictures\\Sample Pictures\\Desert.jpg");
+        //});
     }
 
     #endregion
@@ -98,10 +106,10 @@ namespace Quick_Photo_Viewer
     public void OnWindowLoaded(object sender, RoutedEventArgs e)
     {
       if (Environment.GetCommandLineArgs().Length > 1)
-        LoadImages(Environment.GetCommandLineArgs()[1]);
+        loadImages(Environment.GetCommandLineArgs()[1]);
       else
         //LoadImages("C:\\Users\\Ryan\\Pictures\\sky, space and landscapes\\3r4en.jpg");
-        LoadImages("C:\\Users\\Public\\Pictures\\Sample Pictures\\Desert.jpg");
+        loadImages("C:\\Users\\Public\\Pictures\\Sample Pictures\\Desert.jpg");
     }
 
     public void TranslateImage(double x, double y)
@@ -114,25 +122,44 @@ namespace Quick_Photo_Viewer
       //thePhoto.Source = currPhoto.Image;
     }
 
-    #endregion
-
-
-
-    public void RotateImage(double angle)
+    public ICommand RotateImageLeftCommand { get; set; }
+    public ICommand RotateImageRightCommand { get; set; }
+    private void rotateImage(double angle)
     {
-
       BitmapSource img = (BitmapSource)(CurrentPhoto.Image);
 
       CachedBitmap cache = new CachedBitmap(img, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
       CurrentPhoto.Image = BitmapFrame.Create(new TransformedBitmap(cache, new RotateTransform(angle)));
-
-      //thePhoto.Source = currPhoto.Image;
     }
+
+    public ICommand NextImageCommand { get; set; }
+    private void nextImage()
+    {
+      ImageNumber = (ImageNumber + 1) % ImageCount;
+      CurrentPhoto.ChangeImageSource(ImageFiles[ImageNumber]);
+    }
+
+    public ICommand PreviousImageCommand { get; set; }
+    private void previousImage()
+    {
+      int num = (ImageNumber - 1) % ImageCount;
+      ImageNumber = num < 0 ? ImageCount - 1 : num;
+      CurrentPhoto.ChangeImageSource(ImageFiles[ImageNumber]);
+    }
+
+    public ICommand ToggleImageSizeCommand { get; set; }
+    private void toggleImageSize()
+    {
+      
+    }
+
+    #endregion
+
     #endregion
 
     #region private helpers
 
-    private void LoadImages(string filename)
+    private void loadImages(string filename)
     {
       CurrentPhoto = new Photo(filename);
       //thePhoto.Source = currPhoto.Image; // new Bitmap(filename, false);
@@ -142,7 +169,7 @@ namespace Quick_Photo_Viewer
       _imageFiles = new List<string>();
       foreach (string file in Directory.GetFiles(_imageDirectory))
       {
-        if (IsValidImage(file))
+        if (isValidImage(file))
         {
           _imageFiles.Add(file);
           count++;
@@ -153,12 +180,13 @@ namespace Quick_Photo_Viewer
 
       }
 
+      _imageCount = count;
       // images.Sort();
       //MessageBox.Show(photos.Count + "");
       _photos.Path = _imageDirectory;
       //MessageBox.Show(_photos.Count + "");
     }
-    private bool IsValidImage(string filename)
+    private bool isValidImage(string filename)
     {
       if (filename.Contains(".jpg") || filename.Contains(".jpeg"))
         return true;
@@ -183,6 +211,24 @@ namespace Quick_Photo_Viewer
       //    return false;
       //}
       //return true;
+    }
+    private void registerCommands()
+    {
+      this.NextImageCommand = new DelegateCommand(
+        new Action(() => { this.nextImage(); })
+        );
+      this.PreviousImageCommand = new DelegateCommand(
+        new Action(() => { this.previousImage(); })
+        );
+      this.RotateImageLeftCommand = new DelegateCommand(
+        new Action(() => { this.rotateImage(270); })
+        );
+      this.RotateImageRightCommand = new DelegateCommand(
+        new Action(() => { this.rotateImage(90); })
+        );
+      this.ToggleImageSizeCommand = new DelegateCommand(
+        new Action(() => { this.toggleImageSize(); })
+        );
     }
 
     #endregion
