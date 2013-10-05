@@ -13,5 +13,14 @@ namespace Quick_Photo_Viewer
     /// </summary>
     public partial class App : Application
     {
+      protected override void OnStartup(StartupEventArgs e)
+      {
+        base.OnStartup(e);
+
+        var app = new PhotoView();
+        //var context = new PhotoViewModel();
+        //app.DataContext = context;
+        app.Show();
+      }
     }
 }

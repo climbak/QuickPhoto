@@ -4,7 +4,19 @@
         Title="About Quick Image" Height="300" Width="300" WindowStyle="ToolWindow">
     <Grid>
         <Separator HorizontalAlignment="Left" Height="15" Margin="10,56,0,0" VerticalAlignment="Top" Width="272"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="184" Width="272"><Run Text="Quick Photo Viewer"/><LineBreak/><LineBreak/><Run Text="Version 0.1"/><Run/><LineBreak/><Run Text="Released under the general GNU Licensing Agreement."/><Run/><LineBreak/><LineBreak/><Run Text="Created by: Ryan Courreges"/><LineBreak/><Hyperlink><Run Text="r.courreges@gmail.com"/></Hyperlink></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="10,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="184" Width="272">
+            <Run Text="Quick Photo Viewer"/>
+            <LineBreak/> <LineBreak/>
+            <Run Text="Version 0.1"/>
+            <LineBreak/>
+            <Run Text="Released under the general GNU Licensing Agreement."/>
+            <LineBreak/><LineBreak/>
+            <Run Text="Created by: Ryan Courreges"/>
+            <LineBreak/>
+            <Hyperlink>
+                <Run Text="r.courreges@gmail.com"/>
+            </Hyperlink>
+        </TextBlock>
 
     </Grid>
 </Window>

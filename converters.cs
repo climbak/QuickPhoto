@@ -167,4 +167,41 @@ namespace Quick_Photo_Viewer
             }
         }
     }
+
+    public class MaxWidthConverter : IValueConverter
+    {
+
+      public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        try
+        {
+          return Double.Parse(value.ToString())*0.8;
+        }
+        catch { return null; }
+      }
+
+      public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        throw new NotSupportedException();
+      }
+    }
+
+    public class ExifDataVisibilityConverter : IValueConverter
+    {
+
+      public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        if (value == null)
+          return "Collapsed";
+        if ("".Equals(value as string))
+          return "Collapsed";
+
+        return "Visible";
+      }
+
+      public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        throw new NotSupportedException();
+      }
+    }
 }
