@@ -216,7 +216,6 @@
 						<TranslateTransform/>
 					</TransformGroup>
 				</Button.RenderTransform>
-    		
 			</Button>
 			<Button Content="Button" 
 				Style="{DynamicResource FullSizeButton}" Width="42" Grid.ColumnSpan="3" Grid.Column="1" BorderThickness="0" Height="36">
@@ -225,6 +224,30 @@
 						<i:InvokeCommandAction Command="{Binding ToggleImageSizeCommand}"/>
 					</i:EventTrigger>
 				</i:Interaction.Triggers>
+			</Button>
+			<Button Content="Button" Height="30" Width="30"
+					Style="{DynamicResource RotateButton}" HorizontalAlignment="Left" Grid.Column="4" Margin="5,0,0,0">
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="Click">
+						<i:InvokeCommandAction Command="{Binding RotateImageRightCommand}"/>
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+			</Button>
+			<Button Content="Button" Height="30" Width="30"
+				Style="{DynamicResource RotateButton}" HorizontalAlignment="Right" Margin="0,0,5,0" RenderTransformOrigin="0.5,0.5">
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="Click">
+						<i:InvokeCommandAction Command="{Binding RotateImageLeftCommand}"/>
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+				<Button.RenderTransform>
+					<TransformGroup>
+						<ScaleTransform ScaleY="1" ScaleX="-1"/>
+						<SkewTransform AngleY="0" AngleX="0"/>
+						<RotateTransform Angle="0"/>
+						<TranslateTransform/>
+					</TransformGroup>
+				</Button.RenderTransform>
 			</Button>
 		</Grid>
 	</Grid>
