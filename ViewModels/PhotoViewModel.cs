@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 
 namespace Quick_Photo_Viewer
 {
-  internal class PhotoViewModel
+  internal class PhotoViewModel : INotifyPropertyChanged
   {
 
     #region private members
@@ -48,8 +48,7 @@ namespace Quick_Photo_Viewer
           }
         }
       }
-    }//new Photo("C:\\Users\\Ryan\\Pictures\\sky, space and landscapes\\CrkWD.jpg");
-    //Photo oldPhoto = null;
+    }
     public string ImageDirectory
     {
       get { return _imageDirectory; }

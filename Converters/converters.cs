@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 
 namespace Quick_Photo_Viewer
@@ -212,6 +213,21 @@ namespace Quick_Photo_Viewer
       {
         System.Windows.Media.Stretch stretch = (System.Windows.Media.Stretch)value;
         return stretch.ToString();
+      }
+
+      public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        throw new NotSupportedException();
+      }
+    }
+
+    public class PhotoSizeButtonConverter : IValueConverter
+    {
+
+      public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        System.Windows.Media.Stretch stretch = (System.Windows.Media.Stretch)value;
+        return stretch == System.Windows.Media.Stretch.Uniform ? "{DynamicResource FullSizeButton}" : "{DynamicResource FitSizeButton}";
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

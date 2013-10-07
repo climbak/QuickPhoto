@@ -7,35 +7,41 @@
         Title="Quick Photo Viewer" Height="720" Width="1280" HorizontalAlignment="Left" 
         Icon="..\img-landscape.ico" Background="WhiteSmoke" Foreground="{DynamicResource LightTextColorBrush}" >
 
-  
+
   <Window.Resources>
+
+    <!-- Photo Template -->
+    <!--<DataTemplate DataType="{x:Type ns:Photo}">
+      <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="6">-->
+    <!-- Image Template -->
+    <ns:PhotoSizeButtonConverter x:Key="PhotoSizeButtonConverter"/>
     <ns:ExifDataVisibilityConverter x:Key="ExifDataVisibilityConverter"/>
     <ns:MaxWidthConverter x:Key="MaxWidthConverter"/>
     <!-- Headers for metadata properties -->
     <Style x:Key="MetadataHeader" TargetType="{x:Type Label}">
-    	<Setter Property="Background">
-    		<Setter.Value>
-    			<LinearGradientBrush EndPoint="1,0" MappingMode="RelativeToBoundingBox" StartPoint="0,0">
-    				<GradientStop Color="#FFD7D7D7"/>
-    				<GradientStop Color="WhiteSmoke" Offset="1"/>
-    			</LinearGradientBrush>
-    		</Setter.Value>
-    	</Setter>
+      <Setter Property="Background">
+        <Setter.Value>
+          <LinearGradientBrush EndPoint="1,0" MappingMode="RelativeToBoundingBox" StartPoint="0,0">
+            <GradientStop Color="#FFD7D7D7"/>
+            <GradientStop Color="WhiteSmoke" Offset="1"/>
+          </LinearGradientBrush>
+        </Setter.Value>
+      </Setter>
     </Style>
     <Style TargetType="{x:Type Label}" >
       <Setter Property="Foreground"  Value="{DynamicResource LightTextColorBrush}" />
     </Style>
 
     <Style x:Key="MetadataHeaderDark" TargetType="{x:Type Label}">
-    	<Setter Property="Background">
-    		<Setter.Value>
-    			<LinearGradientBrush EndPoint="1,0" MappingMode="RelativeToBoundingBox" StartPoint="0,0">
-    				<GradientStop Color="#FF535357"/>
-    				<GradientStop Color="#FF333333" Offset="1"/>
-    			</LinearGradientBrush>
-    		</Setter.Value>
-    	</Setter>
-    	<Setter Property="Foreground"  Value="{DynamicResource LightTextColorBrush}" />
+      <Setter Property="Background">
+        <Setter.Value>
+          <LinearGradientBrush EndPoint="1,0" MappingMode="RelativeToBoundingBox" StartPoint="0,0">
+            <GradientStop Color="#FF535357"/>
+            <GradientStop Color="#FF333333" Offset="1"/>
+          </LinearGradientBrush>
+        </Setter.Value>
+      </Setter>
+      <Setter Property="Foreground"  Value="{DynamicResource LightTextColorBrush}" />
     </Style>
 
     <!-- Data converters for complex fields -->
@@ -46,11 +52,7 @@
     <ns:PhotoSizeConverter x:Key="PhotoSizeConverterReference" />
     <ns:PhotoStretchConverter x:Key="PhotoStretchConverterReference" />
 
-    <!-- Photo Template -->
-    <!--<DataTemplate DataType="{x:Type ns:Photo}">
-      <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="6">-->
-        <!-- Image Template -->
-        <!--<Border Padding="4" Background="White" BorderBrush="#22000000" BorderThickness="1">
+    <!--<Border Padding="4" Background="White" BorderBrush="#22000000" BorderThickness="1">
           <StackPanel Orientation="Vertical">
             <Image Source="{Binding Image.Thumbnail}"/>
             <Label Content="{Binding Metadata.DateImageTaken}">
@@ -60,12 +62,12 @@
         </Border>
       </Grid>
     </DataTemplate>-->
-    
+
     <SolidColorBrush x:Key="BorderBrushDark" Color="#FF4E4E57"/>
 
   </Window.Resources>
 
-	<Grid x:Name="layout" Background="{DynamicResource MainBackgroundBrush}">
+  <Grid x:Name="layout" Background="{DynamicResource MainBackgroundBrush}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition/>
@@ -76,7 +78,7 @@
 			<ColumnDefinition/>
 			<ColumnDefinition Width="0.25*"/>
 		</Grid.ColumnDefinitions>
-		<Image x:Name="thePhoto" Source="{Binding CurrentPhoto.Image}" Grid.Column="1" Grid.Row="1" Margin="0" ToolTip="{Binding CurrentPhoto.Source}" RenderTransformOrigin="0.5,0.5" Stretch="{Binding PhotoDisplayMode, Converter={StaticResource PhotoStretchConverterReference}}" />
+    <Image x:Name="thePhoto" Source="{Binding CurrentPhoto.Image, Mode=OneWay}" Grid.Column="1" Grid.Row="1" Margin="0" ToolTip="{Binding CurrentPhoto.Source, Mode=OneWay}" RenderTransformOrigin="0.5,0.5" Stretch="{Binding PhotoDisplayMode, Mode=OneWay}" /> 
 		<ListBox x:Name="ImageList" Grid.Row="1" Margin="0,0,0,24" Background="Transparent" IsSynchronizedWithCurrentItem="True"
 			ItemsSource="{Binding Photos}" HorizontalContentAlignment="Stretch" BorderThickness="0,0,1,1" BorderBrush="{DynamicResource BorderBrushDark}" ScrollViewer.CanContentScroll="False" Grid.RowSpan="2"
 				 >
@@ -217,7 +219,7 @@
 				</Button.RenderTransform>
 			</Button>
 			<Button Content="Button" 
-				Style="{DynamicResource FullSizeButton}" Width="42" Grid.ColumnSpan="3" Grid.Column="1" Height="36">
+				 Width="42" Grid.ColumnSpan="3" Grid.Column="1" Height="36" Style="{DynamicResource FullSizeButton}">
 				<i:Interaction.Triggers>
 					<i:EventTrigger EventName="Click">
 						<i:InvokeCommandAction Command="{Binding ToggleImageSizeCommand}"/>

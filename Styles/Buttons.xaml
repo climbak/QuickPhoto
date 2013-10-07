@@ -70,7 +70,6 @@
 		</Setter>
 	</Style>
 
-
 	<Style x:Key="FullSizeButton" TargetType="{x:Type Button}">
 		<Setter Property="Template">
 			<Setter.Value>
