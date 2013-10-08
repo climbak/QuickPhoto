@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace Quick_Photo_Viewer
 {
@@ -211,7 +212,7 @@ namespace Quick_Photo_Viewer
 
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        System.Windows.Media.Stretch stretch = (System.Windows.Media.Stretch)value;
+        Stretch stretch = (Stretch)value;
         return stretch.ToString();
       }
 
@@ -221,13 +222,38 @@ namespace Quick_Photo_Viewer
       }
     }
 
-    public class PhotoSizeButtonConverter : IValueConverter
+    //public class PhotoSizeButtonConverter : IValueConverter
+    //{
+
+    //  public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //  {
+    //    Stretch stretch = (Stretch)value;
+    //    return stretch == Stretch.Uniform ? "{DynamicResource FullSizeButton}" : "{DynamicResource FitSizeButton}";
+    //  }
+
+    //  public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //  {
+    //    throw new NotSupportedException();
+    //  }
+    //}
+
+    public class PhotoSizeButtonVisibilityConverter : IValueConverter
     {
 
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        System.Windows.Media.Stretch stretch = (System.Windows.Media.Stretch)value;
-        return stretch == System.Windows.Media.Stretch.Uniform ? "{DynamicResource FullSizeButton}" : "{DynamicResource FitSizeButton}";
+        try
+        {
+          Stretch mode = (Stretch)value;
+          if (parameter.ToString() == "Fit")
+            return mode == Stretch.Uniform ? Visibility.Collapsed : Visibility.Visible;
+
+          else return mode == Stretch.Uniform ? Visibility.Visible : Visibility.Collapsed;
+        }
+        catch (InvalidCastException e)
+        {
+          return Visibility.Visible;
+        }
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

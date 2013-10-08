@@ -13,8 +13,9 @@
     <!-- Photo Template -->
     <!--<DataTemplate DataType="{x:Type ns:Photo}">
       <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="6">-->
+    <ns:PhotoSizeButtonVisibilityConverter x:Key="PhotoSizeButtonVisibilityConverter"/>
     <!-- Image Template -->
-    <ns:PhotoSizeButtonConverter x:Key="PhotoSizeButtonConverter"/>
+    <!--<ns:PhotoSizeButtonConverter x:Key="PhotoSizeButtonConverter"/>-->
     <ns:ExifDataVisibilityConverter x:Key="ExifDataVisibilityConverter"/>
     <ns:MaxWidthConverter x:Key="MaxWidthConverter"/>
     <!-- Headers for metadata properties -->
@@ -219,7 +220,8 @@
 				</Button.RenderTransform>
 			</Button>
 			<Button Content="Button" 
-				 Width="42" Grid.ColumnSpan="3" Grid.Column="1" Height="36" Style="{DynamicResource FullSizeButton}">
+				 Width="42" Grid.ColumnSpan="3" Grid.Column="1" Height="36" Style="{DynamicResource FullSizeButton}"
+              Visibility="{Binding PhotoDisplayMode, ConverterParameter=Full, Converter={StaticResource PhotoSizeButtonVisibilityConverter}}">
 				<i:Interaction.Triggers>
 					<i:EventTrigger EventName="Click">
 						<i:InvokeCommandAction Command="{Binding ToggleImageSizeCommand}"/>
@@ -249,6 +251,15 @@
 						<TranslateTransform/>
 					</TransformGroup>
 				</Button.RenderTransform>
+			</Button>
+			<Button Content="Button" 
+				Width="42" Grid.Column="2" Height="36" Style="{DynamicResource FitSizeButton}" Margin="1.5,3,1.499,3" 
+              Visibility="{Binding PhotoDisplayMode, ConverterParameter=Fit, Converter={StaticResource PhotoSizeButtonVisibilityConverter}}" >
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="Click">
+						<i:InvokeCommandAction Command="{Binding ToggleImageSizeCommand}"/>
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
 			</Button>
 		</Grid>
 	</Grid>
